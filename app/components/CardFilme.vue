@@ -9,6 +9,8 @@
           {{ filme.titulo }}
         </h2>
 
+        <NuxtImg :src="filme.posterUrl"/>
+
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">
           {{ filme.ano }}
         </p>

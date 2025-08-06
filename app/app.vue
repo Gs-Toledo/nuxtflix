@@ -5,7 +5,7 @@
         <NuxtPage />
       </NuxtLayout>
     </GlobalLoader>
-</UApp>
+  </UApp>
 </template>
 
 <script setup lang="ts">

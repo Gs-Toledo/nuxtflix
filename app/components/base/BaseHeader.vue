@@ -13,7 +13,7 @@
           class="rounded-full p-2 relative overflow-hidden transition-colors duration-500"
           @click="toggleDark"
         >
-          <transition name="fade-scale" mode="out-in">
+          <transition name="fade-scale" mode="out-in" appear>
             <UIcon
               :key="colorMode.preference"
               :name="

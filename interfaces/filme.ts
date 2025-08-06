@@ -3,4 +3,5 @@ export interface Filme {
   titulo: string;
   ano: number;
   sinopse: string;
+  posterUrl?: string;
 }
