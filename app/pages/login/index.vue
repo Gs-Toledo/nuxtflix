@@ -2,31 +2,79 @@
   <UContainer class="flex items-center justify-center min-h-screen">
     <UCard class="w-full max-w-sm">
       <template #header>
-        <h2 class="text-xl font-bold text-center">Login</h2>
+        <div class="text-center space-y-2">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            Bem-vindo ao <i>Nuxtflix</i>
+          </h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Acesse sua conta para continuar
+          </p>
+        </div>
       </template>
 
-      <UForm :state="loginUsuario" @submit.prevent="handleLogin">
-        <UFormField label="Usuário" name="username" class="mb-4">
+      <UForm :state="loginUsuario" class="space-y-4" @submit="handleLogin">
+        <UFormField label="Usuário" name="username">
           <UInput
             v-model="loginUsuario.usuario"
-            placeholder="teste: admin"
+            class="w-full"
+            icon="i-heroicons-user"
+            placeholder="para teste: admin"
+            size="lg"
           />
         </UFormField>
 
-        <UFormField label="Senha" name="password" class="mb-6">
+        <UFormField label="Senha" name="password">
           <UInput
             v-model="loginUsuario.senha"
+            class="w-full"
             type="password"
-            placeholder="teste: 123123"
+            icon="i-heroicons-lock-closed"
+            placeholder="para teste: 123123"
+            size="lg"
           />
         </UFormField>
 
-        <UButton type="submit" block :loading="isLoading"> Entrar </UButton>
+        <!--     <div class="flex items-center justify-between">
+          <UCheckbox label="Lembrar-me" name="remember" />
+          <NuxtLink
+            to="#"
+            class="text-sm font-medium text-primary hover:underline"
+          >
+            Esqueceu a senha?
+          </NuxtLink>
+        </div> -->
+
+        <UAlert
+          v-if="errorMsg"
+          icon="i-heroicons-exclamation-triangle"
+          color="error"
+          variant="soft"
+          :title="errorMsg"
+          :close-button="{
+            icon: 'i-heroicons-x-mark-20-solid',
+            color: 'red',
+            variant: 'link',
+            padded: false,
+          }"
+          @close="errorMsg = null"
+        />
+
+        <UButton type="submit" block size="lg" :loading="isLoading">
+          Entrar
+        </UButton>
       </UForm>
 
-      <div v-if="errorMsg" class="mt-4 text-center">
-        <span class="text-red-500 text-sm">{{ errorMsg }}</span>
-      </div>
+      <!--  <template #footer>
+        <p class="text-sm text-center text-gray-500 dark:text-gray-400">
+          Não tem uma conta?
+          <NuxtLink
+            to="/cadastro"
+            class="font-medium text-primary hover:underline"
+          >
+            Cadastre-se
+          </NuxtLink>
+        </p>
+      </template> -->
     </UCard>
   </UContainer>
 </template>
