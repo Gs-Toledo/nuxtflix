@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { UContainer, UButton } from "#components";
 const colorMode = useColorMode();
 
 function toggleDark() {

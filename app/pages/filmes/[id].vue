@@ -44,8 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import { UButton, UCard, UContainer } from "#components";
-
 const route = useRoute();
 
 const idFilme = route.params.id;
