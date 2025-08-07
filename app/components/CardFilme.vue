@@ -8,7 +8,7 @@
           <h2 class="text-lg font-semibold mb-1">
             {{ filme.titulo }}
           </h2>
-          <button @click.stop="favoritosStore.toggleFavorito(filme)">
+          <button @click.stop="handleToggleFavorito">
             <UIcon
               v-if="!isFavorito"
               name="material-symbols:kid-star-outline"
@@ -38,11 +38,23 @@
 </template>
 
 <script setup lang="ts">
-import type { Filme } from "~~/interfaces/filme";
+import type { Filme } from "~~/interfaces/Filme";
 
 const props = defineProps<{ filme: Filme }>();
 
+const sessionStore = useSessionStore();
 const favoritosStore = useFavoritosStore();
 
-const isFavorito = computed(() => favoritosStore.isFavorito(props.filme.id));
+const isFavorito = computed(() => {
+  if (sessionStore.usuario) {
+    return favoritosStore.isFavorito(sessionStore.usuario.id, props.filme.id);
+  }
+  return false;
+});
+
+function handleToggleFavorito() {
+  if (!sessionStore.usuario?.id || !props.filme) return false;
+
+  favoritosStore.toggleFavorito(sessionStore.usuario.id, props.filme);
+}
 </script>

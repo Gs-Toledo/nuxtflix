@@ -14,4 +14,8 @@ import type { ToasterProps } from "@nuxt/ui";
 const toasterOptions: ToasterProps = {
   position: "top-center",
 };
+
+useHead({
+  title: () => `NuxtFlix`,
+});
 </script>

@@ -1,36 +1,47 @@
-import type { Filme } from "../interfaces/filme";
+import type { FavoritosPorUsuario } from "./../interfaces/FavoritosPorUsuario";
+import type { Filme } from "../interfaces/Filme";
 import { defineStore } from "pinia";
 
 export const useFavoritosStore = defineStore("favoritos", {
   state: () => ({
-    filmes: [] as Filme[],
+    favoritosPorUsuario: {} as FavoritosPorUsuario,
   }),
   getters: {
     isFavorito: (state) => {
-      return (filmeId: number): boolean =>
-        state.filmes.some((filme) => filme.id === filmeId);
+      return (userId: number, filmeId: number): boolean => {
+        const favoritos = state.favoritosPorUsuario[userId] || [];
+        return favoritos.some((filme) => filme.id === filmeId);
+      };
     },
-    totalFavoritos: (state): number => {
-      return state.filmes.length;
+    getFavoritosPorUsuario: (state) => {
+      return (userId: number): Filme[] => {
+        return state.favoritosPorUsuario[userId] || [];
+      };
     },
   },
 
   actions: {
-    addFavorito(filme: Filme) {
-      if (!this.isFavorito(filme.id)) {
-        this.filmes.push(filme);
+    addFavorito(userId: number, filme: Filme) {
+      if (!this.favoritosPorUsuario[userId]) {
+        this.favoritosPorUsuario[userId] = [];
+      }
+      if (!this.isFavorito(userId, filme.id)) {
+        this.favoritosPorUsuario[userId].push(filme);
       }
     },
-    removeFavorito(filmeId: number) {
-      this.filmes = this.filmes.filter((filme) => filme.id !== filmeId);
+    removeFavorito(userId: number, filmeId: number) {
+      const favoritos = this.favoritosPorUsuario[userId] || [];
+      this.favoritosPorUsuario[userId] = favoritos.filter(
+        (filme) => filme.id !== filmeId
+      );
     },
-    toggleFavorito(filme: Filme) {
-      if (this.isFavorito(filme.id)) {
-        this.removeFavorito(filme.id);
+    toggleFavorito(userId: number, filme: Filme) {
+      if (this.isFavorito(userId, filme.id)) {
+        this.removeFavorito(userId, filme.id);
       } else {
-        this.addFavorito(filme);
+        this.addFavorito(userId, filme);
       }
     },
   },
-/*   persist: true, */
+  persist: true,
 });

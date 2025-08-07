@@ -7,6 +7,7 @@
       <nav class="flex gap-4">
         <NuxtLink to="/" class="hover:underline">Home</NuxtLink>
         <NuxtLink to="/filmes" class="hover:underline">Filmes</NuxtLink>
+        <NuxtLink to="/perfil" class="hover:underline">Perfil</NuxtLink>
         <UButton
           as="button"
           variant="ghost"

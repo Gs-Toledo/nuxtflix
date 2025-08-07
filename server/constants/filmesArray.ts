@@ -1,4 +1,4 @@
-import type { Filme } from "../../interfaces/filme";
+import type { Filme } from "../../interfaces/Filme";
 export const filmeArray: Filme[] = [
   {
     id: 1,

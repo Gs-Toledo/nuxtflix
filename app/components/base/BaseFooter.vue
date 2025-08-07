@@ -5,6 +5,7 @@
     >
       © {{ new Date().getFullYear() }} Nuxtflix
       <p>By Giovanni Toledo</p>
+      <p>Layout By Leandro Araujo</p>
     </UContainer>
   </footer>
 </template>

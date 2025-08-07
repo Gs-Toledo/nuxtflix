@@ -25,7 +25,8 @@
           as="button"
           size="lg"
           color="primary"
-          @click="favoritosStore.toggleFavorito(filme)"
+          :disabled="userId === null"
+          @click="handleToggleFavorito"
         >
           <span v-if="!isFavorito"> Salvar nos Favoritos </span>
           <span v-else> Excluir dos Favoritos </span>
@@ -53,11 +54,19 @@ const { data, error, pending } = useFetch(`/api/filmes/${idFilme}`);
 
 const filme = computed(() => data.value?.filme);
 
+const sessionStore = useSessionStore();
 const favoritosStore = useFavoritosStore();
 
+const userId = computed(() => sessionStore.usuario?.id ?? null);
+
+function handleToggleFavorito() {
+  if (userId.value === null || !filme.value) return;
+  favoritosStore.toggleFavorito(userId.value, filme.value);
+}
+
 const isFavorito = computed(() => {
-  if (!filme.value) return false;
-  return favoritosStore.isFavorito(filme.value.id);
+  if (!filme.value || !sessionStore.usuario) return false;
+  return favoritosStore.isFavorito(sessionStore.usuario.id, filme.value.id);
 });
 
 useHead({
