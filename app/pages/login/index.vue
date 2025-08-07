@@ -9,7 +9,7 @@
         <UFormField label="Usuário" name="username" class="mb-4">
           <UInput
             v-model="loginUsuario.usuario"
-            placeholder="Digite seu usuario"
+            placeholder="teste: admin"
           />
         </UFormField>
 
@@ -17,7 +17,7 @@
           <UInput
             v-model="loginUsuario.senha"
             type="password"
-            placeholder="Digite a Senha"
+            placeholder="teste: 123123"
           />
         </UFormField>
 
@@ -32,8 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { UInput } from "#components";
-
 useHead({
   title: () => `Bem vindo ao Nuxtflix - Login`,
 });
