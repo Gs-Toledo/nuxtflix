@@ -1,6 +1,9 @@
-# Nuxt Minimal Starter
+# Nuxtflix
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Web Aplication for movie enjoyers!
+
+App Figma:
+https://www.figma.com/design/7M1GLNMo6zzb4Z9AIWDAsg/Untitled?node-id=0-1&p=f&t=pLZB5cNBL6XEs19s-0
 
 ## Setup
 
