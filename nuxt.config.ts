@@ -18,15 +18,4 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./stores/**"],
   },
-  nitro: {
-    preset: "github-pages",
-  },
-  app: {
-    baseURL: "/nuxtflix/",
-  },
-  router: {
-    options: {
-      hashMode: false, 
-    },
-  },
 });
