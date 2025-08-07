@@ -6,7 +6,7 @@
 
     <div v-else-if="error" class="text-center py-20">
       <span class="text-red-500"
-        >Erro ao carregar o filme. Erro: {{ status }}</span
+        >Erro ao carregar o filme. Erro: {{ error.message }}</span
       >
     </div>
 
@@ -21,10 +21,23 @@
         </p>
         <p class="text-gray-700 dark:text-gray-300 mb-6">{{ filme.sinopse }}</p>
 
-        <UButton as="button" size="lg" color="primary">
-          Salvar nos Favoritos
+        <UButton
+          as="button"
+          size="lg"
+          color="primary"
+          @click="favoritosStore.toggleFavorito(filme)"
+        >
+          <span v-if="!isFavorito"> Salvar nos Favoritos </span>
+          <span v-else> Excluir dos Favoritos </span>
         </UButton>
       </UCard>
+    </div>
+
+    <div v-else class="text-center py-20">
+      <h2 class="text-xl font-semibold">Ops!</h2>
+      <p class="text-gray-500">
+        O filme que você está procurando não foi encontrado.
+      </p>
     </div>
   </UContainer>
 </template>
@@ -36,11 +49,18 @@ const route = useRoute();
 
 const idFilme = route.params.id;
 
-const { data, error, status, pending } = useFetch(`/api/filmes/${idFilme}`);
+const { data, error, pending } = useFetch(`/api/filmes/${idFilme}`);
 
 const filme = computed(() => data.value?.filme);
 
+const favoritosStore = useFavoritosStore();
+
+const isFavorito = computed(() => {
+  if (!filme.value) return false;
+  return favoritosStore.isFavorito(filme.value.id);
+});
+
 useHead({
-  title: () => `NuxtFlix - ${filme.value?.titulo || "Filme"}`,
+  title: () => `NuxtFlix - ${filme.value?.titulo || "Filme não encontrado"}`,
 });
 </script>

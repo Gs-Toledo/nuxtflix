@@ -1,36 +1,36 @@
 import type { Filme } from "../interfaces/filme";
 import { defineStore } from "pinia";
 
-export const useFavoritesStore = defineStore("favorites", {
+export const useFavoritosStore = defineStore("favoritos", {
   state: () => ({
-    items: [] as Filme[],
+    filmes: [] as Filme[],
   }),
   getters: {
-    isFavorite: (state) => {
+    isFavorito: (state) => {
       return (filmeId: number): boolean =>
-        state.items.some((item) => item.id === filmeId);
+        state.filmes.some((filme) => filme.id === filmeId);
     },
-    totalFavorites: (state): number => {
-      return state.items.length;
+    totalFavoritos: (state): number => {
+      return state.filmes.length;
     },
   },
 
   actions: {
-    addFavorite(filme: Filme) {
-      if (!this.isFavorite(filme.id)) {
-        this.items.push(filme);
+    addFavorito(filme: Filme) {
+      if (!this.isFavorito(filme.id)) {
+        this.filmes.push(filme);
       }
     },
-    removeFavorite(filmeId: number) {
-      this.items = this.items.filter((item) => item.id !== filmeId);
+    removeFavorito(filmeId: number) {
+      this.filmes = this.filmes.filter((filme) => filme.id !== filmeId);
     },
-    toggleFavorite(filme: Filme) {
-      if (this.isFavorite(filme.id)) {
-        this.removeFavorite(filme.id);
+    toggleFavorito(filme: Filme) {
+      if (this.isFavorito(filme.id)) {
+        this.removeFavorito(filme.id);
       } else {
-        this.addFavorite(filme);
+        this.addFavorito(filme);
       }
     },
   },
-  persist: true,
+/*   persist: true, */
 });
